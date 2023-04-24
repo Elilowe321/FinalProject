@@ -428,7 +428,7 @@ int main() {
             window.draw(searchButtonText);
 
             //Draw Required header
-            requiredHeader.setPosition(400, 400);
+            requiredHeader.setPosition(400, 100);
             window.draw(requiredHeader);
 
         }
