@@ -123,7 +123,7 @@ int main() {
     distanceText.setString("");
 
     //Distance Heading
-    sf::Text distanceHeading("Distance Away", font, 36);
+    sf::Text distanceHeading("Distance Away (Miles)", font, 36);
     distanceHeading.setFillColor(sf::Color::Blue);
 
 
@@ -371,6 +371,97 @@ int main() {
         if(isSearchActive) {
 
             window.clear(sf::Color::White);
+
+            //==========Print car make==========
+            sf::RectangleShape printCarMakeRectangle(sf::Vector2f(200, 50));
+            printCarMakeRectangle.setFillColor(sf::Color::White);
+
+            //text for car make
+            sf::Text printCarMakeText("Car Make: " + carMakeInput, font, 24);
+            printCarMakeText.setFillColor(sf::Color::Black);
+
+            //Draw car make output
+            printCarMakeRectangle.setPosition(50,30);
+            printCarMakeText.setPosition(printCarMakeRectangle.getPosition().x + 10, printCarMakeRectangle.getPosition().y + 10);
+            window.draw(printCarMakeRectangle);
+            window.draw(printCarMakeText);
+
+
+            //==========Print zip code==========
+            sf::RectangleShape printZipCodeRectangle(sf::Vector2f(200, 50));
+            printZipCodeRectangle.setFillColor(sf::Color::White);
+
+            //text for car make
+            sf::Text printZipCodeText("Zip Code: " + to_string(zipCodeInput), font, 24); //Doesn't print out ints correctly
+            printZipCodeText.setFillColor(sf::Color::Black);
+
+            //Draw car make output
+            printZipCodeRectangle.setPosition(50,80);
+            printZipCodeText.setPosition(printZipCodeRectangle.getPosition().x + 10, printZipCodeRectangle.getPosition().y + 10);
+            window.draw(printZipCodeRectangle);
+            window.draw(printZipCodeText);
+
+
+            //==========Print min price==========
+            sf::RectangleShape printMinPriceRectangle(sf::Vector2f(200, 50));
+            printMinPriceRectangle.setFillColor(sf::Color::White);
+
+            //text for Minimum price
+            sf::Text printMinPriceText("Minimum Price: " + to_string(minPriceInput), font, 24); //Doesn't print out ints correctly
+            printMinPriceText.setFillColor(sf::Color::Black);
+
+            //Draw min price output
+            printMinPriceRectangle.setPosition(50,130);
+            printMinPriceText.setPosition(printMinPriceRectangle.getPosition().x + 10, printMinPriceRectangle.getPosition().y + 10);
+            window.draw(printMinPriceRectangle);
+            window.draw(printMinPriceText);
+
+
+            //==========Print max price==========
+            sf::RectangleShape printMaxPriceRectangle(sf::Vector2f(200, 50));
+            printMaxPriceRectangle.setFillColor(sf::Color::White);
+
+            //text for max price
+            sf::Text printMaxPriceText("Maximum Price: " + to_string(maxPriceInput), font, 24); //Doesn't print out ints correctly
+            printMaxPriceText.setFillColor(sf::Color::Black);
+
+            //Draw max price output
+            printMaxPriceRectangle.setPosition(50,180);
+            printMaxPriceText.setPosition(printMaxPriceRectangle.getPosition().x + 10, printMaxPriceRectangle.getPosition().y + 10);
+            window.draw(printMaxPriceRectangle);
+            window.draw(printMaxPriceText);
+
+
+            //==========Print body type==========
+            sf::RectangleShape printBodyTypeRectangle(sf::Vector2f(200, 50));
+            printBodyTypeRectangle.setFillColor(sf::Color::White);
+
+            //text for body type
+            sf::Text printBodyTypeText("Body Type: " + bodyTypeInput, font, 24); //Doesn't print out ints correctly
+            printBodyTypeText.setFillColor(sf::Color::Black);
+
+            //Draw body type output
+            printBodyTypeRectangle.setPosition(50,230);
+            printBodyTypeText.setPosition(printBodyTypeRectangle.getPosition().x + 10, printBodyTypeRectangle.getPosition().y + 10);
+            window.draw(printBodyTypeRectangle);
+            window.draw(printBodyTypeText);
+
+
+            //==========Print distance==========
+            sf::RectangleShape printDistanceRectangle(sf::Vector2f(200, 50));
+            printDistanceRectangle.setFillColor(sf::Color::White);
+
+            //text for distance
+            sf::Text printDistanceText("Distance (Miles): " + to_string(distanceInput), font, 24); //Doesn't print out ints correctly
+            printDistanceText.setFillColor(sf::Color::Black);
+
+            //Draw distance output
+            printDistanceRectangle.setPosition(50,280);
+            printDistanceText.setPosition(printDistanceRectangle.getPosition().x + 10, printDistanceRectangle.getPosition().y + 10);
+            window.draw(printDistanceRectangle);
+            window.draw(printDistanceText);
+
+
         } else { //Search is not clicked, keep getting inputs
 
             //Draw input for make of car
