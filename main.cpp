@@ -110,16 +110,29 @@ int main() {
     sf::Text requiredHeader("* = required field", font, 12);
     requiredHeader.setFillColor(sf::Color::Red);
 
+    //==========Search Button==========
+
+    // Set up the rectangle
+    sf::RectangleShape searchButtonRectangle(sf::Vector2f(100, 50));
+    searchButtonRectangle.setFillColor(sf::Color::Black);
+    searchButtonRectangle.setOutlineThickness(2);
+    searchButtonRectangle.setOutlineColor(sf::Color::Black);
+
+    //text for search button
+    sf::Text searchButtonText("Search", font, 24);
+    searchButtonText.setFillColor(sf::Color::White);
+
+
 
     bool isCarMakeActive = false;
     bool isZipCodeActive = false;
     bool isMinPriceActice = false;
     bool isMaxPriceActive = false;
     bool isBodyTypeActive = false;
+    bool isSearchActive = false;
     while (window.isOpen()) {
 
         sf::Event event;
-
         while (window.pollEvent(event)) {
 
             if (event.type == sf::Event::Closed) { //Exit program
@@ -293,6 +306,12 @@ int main() {
             }
 
 
+            //==========Search Button==========
+            //User clicked in the body type text box
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && searchButtonRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isSearchActive = true;
+            }
+
         }
 
         window.clear(sf::Color::White);
@@ -338,9 +357,17 @@ int main() {
         window.draw(bodyTypeHeading);
         window.draw(bodyTypeText);
 
-        //Required header
+        //Draw Search Button
+        searchButtonRectangle.setPosition(400,350);
+        searchButtonText.setPosition(searchButtonRectangle.getPosition().x + 10, searchButtonRectangle.getPosition().y + 10);
+        window.draw(searchButtonRectangle);
+        window.draw(searchButtonText);
+
+        //Draw Required header
         requiredHeader.setPosition(400, 400);
         window.draw(requiredHeader);
+
+
 
 
 
