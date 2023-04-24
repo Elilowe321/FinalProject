@@ -110,8 +110,24 @@ int main() {
     sf::Text requiredHeader("* = required field", font, 12);
     requiredHeader.setFillColor(sf::Color::Red);
 
-    //==========Search Button==========
 
+    //==========Set up text, box, text, and inputs for distance away==========
+    sf::RectangleShape distanceRectangle = textBox();
+    int distanceInput;
+
+    //Hold text for distance
+    sf::Text distanceText;
+    distanceText.setFont(font);
+    distanceText.setCharacterSize(24);
+    distanceText.setFillColor(sf::Color::Black);
+    distanceText.setString("");
+
+    //Distance Heading
+    sf::Text distanceHeading("Distance Away", font, 36);
+    distanceHeading.setFillColor(sf::Color::Blue);
+
+
+    //==========Search Button==========
     // Set up the rectangle
     sf::RectangleShape searchButtonRectangle(sf::Vector2f(100, 50));
     searchButtonRectangle.setFillColor(sf::Color::Black);
@@ -129,6 +145,7 @@ int main() {
     bool isMinPriceActice = false;
     bool isMaxPriceActive = false;
     bool isBodyTypeActive = false;
+    bool isDistanceActive = false;
     bool isSearchActive = false;
     while (window.isOpen()) {
 
@@ -139,7 +156,6 @@ int main() {
                 window.close();
             }
 
-            //TODO::When search button is clicked, make sure none of these work
 
             //==========Car Make==========
             //User clicked in the car make text box
@@ -307,6 +323,41 @@ int main() {
             }
 
 
+            //==========Distance away==========
+            //User clicked in the distance text box
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && distanceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isDistanceActive = true;
+            }
+            //User is typing in the min price text box
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isDistanceActive) {
+
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
+
+                    distanceText.setString(distanceText.getString() + static_cast<char>(event.text.unicode));
+
+                    //Convert string to int
+                    std::stringstream ss(distanceText.getString());
+                    ss >> distanceInput;
+                }
+                else if (event.text.unicode == '\b') { // Handle backspace
+
+                    std::string str = distanceText.getString();
+                    if (str.size() > 0) {
+                        str.pop_back();
+                        distanceText.setString(str);
+
+                        //Convert string to int
+                        std::stringstream ss(distanceText.getString());
+                        ss >> distanceInput;
+                    }
+                }
+            }
+            // Check if the user clicked outside of the body type text box to deactivate it
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !distanceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isDistanceActive = false;
+            }
+
+
             //==========Search Button==========
             //User clicked in the body type text box
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && searchButtonRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
@@ -362,8 +413,16 @@ int main() {
             window.draw(bodyTypeHeading);
             window.draw(bodyTypeText);
 
+            //Draw input for distance
+            distanceRectangle.setPosition(400,350);
+            distanceHeading.setPosition(distanceRectangle.getPosition().x, distanceRectangle.getPosition().y - 50);
+            distanceText.setPosition(distanceRectangle.getPosition().x + 10, distanceRectangle.getPosition().y + 10);
+            window.draw(distanceRectangle);
+            window.draw(distanceHeading);
+            window.draw(distanceText);
+
             //Draw Search Button
-            searchButtonRectangle.setPosition(400,350);
+            searchButtonRectangle.setPosition(400,450);
             searchButtonText.setPosition(searchButtonRectangle.getPosition().x + 10, searchButtonRectangle.getPosition().y + 10);
             window.draw(searchButtonRectangle);
             window.draw(searchButtonText);
@@ -394,6 +453,9 @@ int main() {
     std::cout << "Max Price = " << maxPriceInput << std::endl;
 
     std::cout << "Body Type = " << bodyTypeInput << std::endl;
+
+    std::cout << "Distance = " << distanceInput << std::endl;
+
 
     return 0;
 }
