@@ -139,14 +139,15 @@ int main() {
                 window.close();
             }
 
+            //TODO::When search button is clicked, make sure none of these work
 
             //==========Car Make==========
             //User clicked in the car make text box
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isCarMakeActive = true;
             }
             //User is typing in the car make text box
-            if (event.type == sf::Event::TextEntered && isCarMakeActive) {
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isCarMakeActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for car make
 
@@ -164,18 +165,18 @@ int main() {
                 }
             }
             // Check if the user clicked outside of the car make text box to deactivate it
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isCarMakeActive = false;
             }
 
 
             //==========Zip code==========
             //User clicked in the zip code text box
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isZipCodeActive = true;
             }
             //User is typing in the zip code text box
-            if (event.type == sf::Event::TextEntered && isZipCodeActive) {
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isZipCodeActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -199,18 +200,18 @@ int main() {
                 }
             }
             // Check if the user clicked outside of the zip code text box to deactivate it
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isZipCodeActive = false;
             }
 
 
             //==========Min Price==========
             //User clicked in the min price text box
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isMinPriceActice = true;
             }
             //User is typing in the min price text box
-            if (event.type == sf::Event::TextEntered && isMinPriceActice) {
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isMinPriceActice) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -234,18 +235,18 @@ int main() {
                 }
             }
             // Check if the user clicked outside of the min price text box to deactivate it
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isMinPriceActice = false;
             }
 
 
             //==========Max Price==========
             //User clicked in the max price text box
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isMaxPriceActive = true;
             }
             //User is typing in the max price text box
-            if (event.type == sf::Event::TextEntered && isMaxPriceActive) {
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isMaxPriceActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -271,18 +272,18 @@ int main() {
                 }
             }
             // Check if the user clicked outside of the max price text box to deactivate it
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isMaxPriceActive = false;
             }
 
 
             //==========Body Type==========
             //User clicked in the body type text box
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isBodyTypeActive = true;
             }
             //User is typing in the body type text box
-            if (event.type == sf::Event::TextEntered && isBodyTypeActive) {
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isBodyTypeActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -301,71 +302,77 @@ int main() {
                 }
             }
             // Check if the user clicked outside of the body type text box to deactivate it
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isBodyTypeActive = false;
             }
 
 
             //==========Search Button==========
             //User clicked in the body type text box
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && searchButtonRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && searchButtonRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
                 isSearchActive = true;
             }
-
         }
 
         window.clear(sf::Color::White);
 
+        //Show results if button is clicked
+        if(isSearchActive) {
 
-        //Draw input for make of car
-        carMakeRectangle.setPosition(50,50);
-        makeHeading.setPosition(carMakeRectangle.getPosition().x, carMakeRectangle.getPosition().y - 50);
-        carMakeText.setPosition(carMakeRectangle.getPosition().x + 10, carMakeRectangle.getPosition().y + 10);
-        window.draw(carMakeRectangle);
-        window.draw(makeHeading);
-        window.draw(carMakeText);
+            window.clear(sf::Color::White);
+        } else { //Search is not clicked, keep getting inputs
 
-        //Draw input for zip code
-        zipCodeRectangle.setPosition(400,50);
-        zipCodeHeading.setPosition(zipCodeRectangle.getPosition().x, zipCodeRectangle.getPosition().y - 50);
-        zipCodeText.setPosition(zipCodeRectangle.getPosition().x + 10, zipCodeRectangle.getPosition().y + 10);
-        window.draw(zipCodeRectangle);
-        window.draw(zipCodeHeading);
-        window.draw(zipCodeText);
+            //Draw input for make of car
+            carMakeRectangle.setPosition(50,50);
+            makeHeading.setPosition(carMakeRectangle.getPosition().x, carMakeRectangle.getPosition().y - 50);
+            carMakeText.setPosition(carMakeRectangle.getPosition().x + 10, carMakeRectangle.getPosition().y + 10);
+            window.draw(carMakeRectangle);
+            window.draw(makeHeading);
+            window.draw(carMakeText);
 
-        //Draw inputs input for min price
-        minPriceRectangle.setPosition(50,200);
-        minPriceHeading.setPosition(minPriceRectangle.getPosition().x, minPriceRectangle.getPosition().y - 50);
-        minPriceText.setPosition(minPriceRectangle.getPosition().x + 10, minPriceRectangle.getPosition().y + 10);
-        window.draw(minPriceRectangle);
-        window.draw(minPriceHeading);
-        window.draw(minPriceText);
+            //Draw input for zip code
+            zipCodeRectangle.setPosition(400,50);
+            zipCodeHeading.setPosition(zipCodeRectangle.getPosition().x, zipCodeRectangle.getPosition().y - 50);
+            zipCodeText.setPosition(zipCodeRectangle.getPosition().x + 10, zipCodeRectangle.getPosition().y + 10);
+            window.draw(zipCodeRectangle);
+            window.draw(zipCodeHeading);
+            window.draw(zipCodeText);
 
-        //Draw input for max price
-        maxPriceRectangle.setPosition(400,200);
-        maxPriceHeading.setPosition(maxPriceRectangle.getPosition().x, maxPriceRectangle.getPosition().y - 50);
-        maxPriceText.setPosition(maxPriceRectangle.getPosition().x + 10, maxPriceRectangle.getPosition().y + 10);
-        window.draw(maxPriceRectangle);
-        window.draw(maxPriceHeading);
-        window.draw(maxPriceText);
+            //Draw inputs input for min price
+            minPriceRectangle.setPosition(50,200);
+            minPriceHeading.setPosition(minPriceRectangle.getPosition().x, minPriceRectangle.getPosition().y - 50);
+            minPriceText.setPosition(minPriceRectangle.getPosition().x + 10, minPriceRectangle.getPosition().y + 10);
+            window.draw(minPriceRectangle);
+            window.draw(minPriceHeading);
+            window.draw(minPriceText);
 
-        //Draw input for body type
-        bodyTypeRectangle.setPosition(50,350);
-        bodyTypeHeading.setPosition(bodyTypeRectangle.getPosition().x, bodyTypeRectangle.getPosition().y - 50);
-        bodyTypeText.setPosition(bodyTypeRectangle.getPosition().x + 10, bodyTypeRectangle.getPosition().y + 10);
-        window.draw(bodyTypeRectangle);
-        window.draw(bodyTypeHeading);
-        window.draw(bodyTypeText);
+            //Draw input for max price
+            maxPriceRectangle.setPosition(400,200);
+            maxPriceHeading.setPosition(maxPriceRectangle.getPosition().x, maxPriceRectangle.getPosition().y - 50);
+            maxPriceText.setPosition(maxPriceRectangle.getPosition().x + 10, maxPriceRectangle.getPosition().y + 10);
+            window.draw(maxPriceRectangle);
+            window.draw(maxPriceHeading);
+            window.draw(maxPriceText);
 
-        //Draw Search Button
-        searchButtonRectangle.setPosition(400,350);
-        searchButtonText.setPosition(searchButtonRectangle.getPosition().x + 10, searchButtonRectangle.getPosition().y + 10);
-        window.draw(searchButtonRectangle);
-        window.draw(searchButtonText);
+            //Draw input for body type
+            bodyTypeRectangle.setPosition(50,350);
+            bodyTypeHeading.setPosition(bodyTypeRectangle.getPosition().x, bodyTypeRectangle.getPosition().y - 50);
+            bodyTypeText.setPosition(bodyTypeRectangle.getPosition().x + 10, bodyTypeRectangle.getPosition().y + 10);
+            window.draw(bodyTypeRectangle);
+            window.draw(bodyTypeHeading);
+            window.draw(bodyTypeText);
 
-        //Draw Required header
-        requiredHeader.setPosition(400, 400);
-        window.draw(requiredHeader);
+            //Draw Search Button
+            searchButtonRectangle.setPosition(400,350);
+            searchButtonText.setPosition(searchButtonRectangle.getPosition().x + 10, searchButtonRectangle.getPosition().y + 10);
+            window.draw(searchButtonRectangle);
+            window.draw(searchButtonText);
+
+            //Draw Required header
+            requiredHeader.setPosition(400, 400);
+            window.draw(requiredHeader);
+
+        }
 
 
 
