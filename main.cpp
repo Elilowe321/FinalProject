@@ -111,6 +111,11 @@ int main() {
     requiredHeader.setFillColor(sf::Color::Red);
 
 
+    bool isCarMakeActive = false;
+    bool isZipCodeActive = false;
+    bool isMinPriceActice = false;
+    bool isMaxPriceActive = false;
+    bool isBodyTypeActive = false;
     while (window.isOpen()) {
 
         sf::Event event;
@@ -121,8 +126,14 @@ int main() {
                 window.close();
             }
 
+
+            //==========Car Make==========
+            //User clicked in the car make text box
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isCarMakeActive = true;
+            }
             //User is typing in the car make text box
-            if (event.type == sf::Event::TextEntered && carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (event.type == sf::Event::TextEntered && isCarMakeActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for car make
 
@@ -139,10 +150,19 @@ int main() {
                     }
                 }
             }
+            // Check if the user clicked outside of the car make text box to deactivate it
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !carMakeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isCarMakeActive = false;
+            }
 
+
+            //==========Zip code==========
+            //User clicked in the zip code text box
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isZipCodeActive = true;
+            }
             //User is typing in the zip code text box
-            //TODO::Make this required
-            if (event.type == sf::Event::TextEntered && zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (event.type == sf::Event::TextEntered && isZipCodeActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -150,7 +170,6 @@ int main() {
 
                     //Convert string to int
                     std::stringstream ss(zipCodeText.getString());
-                    //TODO::Might need check to see if this fails or not
                     ss >> zipCodeInput;
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
@@ -162,14 +181,23 @@ int main() {
 
                         //Convert string to int
                         std::stringstream ss(zipCodeText.getString());
-                        //TODO::Might need check to see if this fails or not
                         ss >> zipCodeInput;
                     }
                 }
             }
+            // Check if the user clicked outside of the zip code text box to deactivate it
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isZipCodeActive = false;
+            }
 
+
+            //==========Min Price==========
+            //User clicked in the min price text box
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isMinPriceActice = true;
+            }
             //User is typing in the min price text box
-            if (event.type == sf::Event::TextEntered && minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (event.type == sf::Event::TextEntered && isMinPriceActice) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -177,7 +205,6 @@ int main() {
 
                     //Convert string to int
                     std::stringstream ss(minPriceText.getString());
-                    //TODO::Might need check to see if this fails or not
                     ss >> minPriceInput;
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
@@ -189,14 +216,23 @@ int main() {
 
                         //Convert string to int
                         std::stringstream ss(minPriceText.getString());
-                        //TODO::Might need check to
-                        ss >> minPriceInput; //successful Conversion
+                        ss >> minPriceInput;
                     }
                 }
             }
+            // Check if the user clicked outside of the min price text box to deactivate it
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isMinPriceActice = false;
+            }
 
+
+            //==========Max Price==========
+            //User clicked in the max price text box
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isMaxPriceActive = true;
+            }
             //User is typing in the max price text box
-            if (event.type == sf::Event::TextEntered && maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (event.type == sf::Event::TextEntered && isMaxPriceActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -204,7 +240,6 @@ int main() {
 
                     //Convert string to int
                     std::stringstream ss(maxPriceText.getString());
-                    //TODO::Might need check to see if this fails or not
                     ss >> maxPriceInput;
 
                 }
@@ -217,15 +252,24 @@ int main() {
 
                         //Convert string to int
                         std::stringstream ss(maxPriceText.getString());
-                        //TODO::Might need check to
                         ss >> maxPriceInput; //successful Conversion
 
                     }
                 }
             }
+            // Check if the user clicked outside of the max price text box to deactivate it
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isMaxPriceActive = false;
+            }
 
+
+            //==========Body Type==========
+            //User clicked in the body type text box
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isBodyTypeActive = true;
+            }
             //User is typing in the body type text box
-            if (event.type == sf::Event::TextEntered && bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+            if (event.type == sf::Event::TextEntered && isBodyTypeActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -243,6 +287,12 @@ int main() {
                     }
                 }
             }
+            // Check if the user clicked outside of the body type text box to deactivate it
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !bodyTypeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+                isBodyTypeActive = false;
+            }
+
+
         }
 
         window.clear(sf::Color::White);
