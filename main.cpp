@@ -142,7 +142,7 @@ int main() {
 
     bool isCarMakeActive = false;
     bool isZipCodeActive = false;
-    bool isMinPriceActice = false;
+    bool isMinPriceActive = false;
     bool isMaxPriceActive = false;
     bool isBodyTypeActive = false;
     bool isDistanceActive = false;
@@ -224,10 +224,10 @@ int main() {
             //==========Min Price==========
             //User clicked in the min price text box
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isMinPriceActice = true;
+                isMinPriceActive = true;
             }
             //User is typing in the min price text box
-            if (!isSearchActive && event.type == sf::Event::TextEntered && isMinPriceActice) {
+            if (!isSearchActive && event.type == sf::Event::TextEntered && isMinPriceActive) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
@@ -252,7 +252,7 @@ int main() {
             }
             // Check if the user clicked outside of the min price text box to deactivate it
             if (!isSearchActive && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && !minPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-                isMinPriceActice = false;
+                isMinPriceActive = false;
             }
 
 
