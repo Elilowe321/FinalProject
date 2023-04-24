@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 #pragma "once"
 
@@ -18,7 +19,7 @@ sf::RectangleShape textBox() {
 
 int main() {
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(800, 500), "SFML window");
     //window.setFramerateLimit(60);
 
     //Font
@@ -43,7 +44,7 @@ int main() {
 
     //==========Set up text, box, text, and inputs for zip code==========
     sf::RectangleShape zipCodeRectangle = textBox();
-    std::string zipCodeInput;
+    int zipCodeInput;
 
     //Hold text for zip code
     sf::Text zipCodeText;
@@ -53,13 +54,13 @@ int main() {
     zipCodeText.setString("");
 
     //Zip code Heading
-    sf::Text zipCodeHeading("Zip Code", font, 36);
+    sf::Text zipCodeHeading("Zip Code*", font, 36);
     zipCodeHeading.setFillColor(sf::Color::Blue);
 
 
     //==========Set up text, box, text, and inputs for min price==========
     sf::RectangleShape minPriceRectangle = textBox();
-    std::string minPriceInput;
+    int minPriceInput;
 
     //Hold text for min price
     sf::Text minPriceText;
@@ -75,7 +76,7 @@ int main() {
 
     //==========Set up text, box, text, and inputs for max price==========
     sf::RectangleShape maxPriceRectangle = textBox();
-    std::string maxPriceInput;
+    int maxPriceInput;
 
     //Hold text for max price
     sf::Text maxPriceText;
@@ -103,6 +104,11 @@ int main() {
     //Body type Heading
     sf::Text bodyTypeHeading("Body Type", font, 36);
     bodyTypeHeading.setFillColor(sf::Color::Blue);
+
+
+    //==========Required Text==========
+    sf::Text requiredHeader("* = required field", font, 12);
+    requiredHeader.setFillColor(sf::Color::Red);
 
 
     while (window.isOpen()) {
@@ -135,13 +141,17 @@ int main() {
             }
 
             //User is typing in the zip code text box
+            //TODO::Make this required
             if (event.type == sf::Event::TextEntered && zipCodeRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 
                 if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
 
                     zipCodeText.setString(zipCodeText.getString() + static_cast<char>(event.text.unicode));
 
-                    zipCodeInput = zipCodeText.getString();
+                    //Convert string to int
+                    std::stringstream ss(zipCodeText.getString());
+                    //TODO::Might need check to see if this fails or not
+                    ss >> zipCodeInput;
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
@@ -149,7 +159,11 @@ int main() {
                     if (str.size() > 0) {
                         str.pop_back();
                         zipCodeText.setString(str);
-                        zipCodeInput = zipCodeText.getString();
+
+                        //Convert string to int
+                        std::stringstream ss(zipCodeText.getString());
+                        //TODO::Might need check to see if this fails or not
+                        ss >> zipCodeInput;
                     }
                 }
             }
@@ -161,7 +175,10 @@ int main() {
 
                     minPriceText.setString(minPriceText.getString() + static_cast<char>(event.text.unicode));
 
-                    minPriceInput = minPriceText.getString();
+                    //Convert string to int
+                    std::stringstream ss(minPriceText.getString());
+                    //TODO::Might need check to see if this fails or not
+                    ss >> minPriceInput;
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
@@ -169,7 +186,11 @@ int main() {
                     if (str.size() > 0) {
                         str.pop_back();
                         minPriceText.setString(str);
-                        minPriceInput = minPriceText.getString();
+
+                        //Convert string to int
+                        std::stringstream ss(minPriceText.getString());
+                        //TODO::Might need check to
+                        ss >> minPriceInput; //successful Conversion
                     }
                 }
             }
@@ -181,7 +202,11 @@ int main() {
 
                     maxPriceText.setString(maxPriceText.getString() + static_cast<char>(event.text.unicode));
 
-                    maxPriceInput = maxPriceText.getString();
+                    //Convert string to int
+                    std::stringstream ss(maxPriceText.getString());
+                    //TODO::Might need check to see if this fails or not
+                    ss >> maxPriceInput;
+
                 }
                 else if (event.text.unicode == '\b') { // Handle backspace
 
@@ -189,7 +214,12 @@ int main() {
                     if (str.size() > 0) {
                         str.pop_back();
                         maxPriceText.setString(str);
-                        maxPriceInput = maxPriceText.getString();
+
+                        //Convert string to int
+                        std::stringstream ss(maxPriceText.getString());
+                        //TODO::Might need check to
+                        ss >> maxPriceInput; //successful Conversion
+
                     }
                 }
             }
@@ -258,6 +288,11 @@ int main() {
         window.draw(bodyTypeHeading);
         window.draw(bodyTypeText);
 
+        //Required header
+        requiredHeader.setPosition(400, 400);
+        window.draw(requiredHeader);
+
+
 
         window.display();
     }
@@ -265,14 +300,14 @@ int main() {
 
     std::cout << "Car Make = " << carMakeInput << std::endl;
 
-    int actualZipCode = stoi(zipCodeInput);
-    std::cout << "ZipCode = " << actualZipCode << std::endl;
+    std::cout << "ZipCode = " << zipCodeInput << std::endl;
 
-    int actualMinPrice = stoi(minPriceInput);
-    std::cout << "Min Price = " << actualMinPrice << std::endl;
+    std::cout << "Min Price = " << minPriceInput << std::endl;
 
-    int actualMaxPrice = stoi(maxPriceInput);
-    std::cout << "Max Price = " << actualMaxPrice << std::endl;
+    if(maxPriceInput == 0) { //No Input given
+        maxPriceInput = INT_MAX;
+    }
+    std::cout << "Max Price = " << maxPriceInput << std::endl;
 
     std::cout << "Body Type = " << bodyTypeInput << std::endl;
 
