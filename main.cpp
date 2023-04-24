@@ -56,6 +56,22 @@ int main() {
     zipCodeHeading.setFillColor(sf::Color::Blue);
 
 
+    //==========Set up text, box, text, and inputs for zip code==========
+    sf::RectangleShape maxPriceRectangle = textBox();
+    std::string maxPriceInput;
+
+    //Hold text for zip code
+    sf::Text maxPriceText;
+    maxPriceText.setFont(font);
+    maxPriceText.setCharacterSize(24);
+    maxPriceText.setFillColor(sf::Color::Black);
+    maxPriceText.setString("");
+
+    //Zip code Heading
+    sf::Text maxPriceHeading("Max Price", font, 36);
+    maxPriceHeading.setFillColor(sf::Color::Blue);
+
+
 
     while (window.isOpen()) {
 
@@ -105,6 +121,26 @@ int main() {
                     }
                 }
             }
+
+            //User is typing in the max price text box
+            if (event.type == sf::Event::TextEntered && maxPriceRectangle.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+
+                if (event.text.unicode < 128 && event.text.unicode != '\b') { //Get input for zip code
+
+                    maxPriceText.setString(maxPriceText.getString() + static_cast<char>(event.text.unicode));
+
+                    maxPriceInput = maxPriceText.getString();
+                }
+                else if (event.text.unicode == '\b') { // Handle backspace
+
+                    std::string str = maxPriceText.getString();
+                    if (str.size() > 0) {
+                        str.pop_back();
+                        maxPriceText.setString(str);
+                        maxPriceInput = maxPriceText.getString();
+                    }
+                }
+            }
         }
 
         window.clear(sf::Color::White);
@@ -126,15 +162,26 @@ int main() {
         window.draw(zipCodeHeading);
         window.draw(zipCodeText);
 
+        //Draw middle inputs (max price)
+        maxPriceRectangle.setPosition(50,200);
+        maxPriceHeading.setPosition(maxPriceRectangle.getPosition().x, maxPriceRectangle.getPosition().y - 50);
+        maxPriceText.setPosition(maxPriceRectangle.getPosition().x + 10, maxPriceRectangle.getPosition().y + 10);
+        window.draw(maxPriceRectangle);
+        window.draw(maxPriceHeading);
+        window.draw(maxPriceText);
+
 
         window.display();
     }
 
 
-    std::cout << "Text = " << carMakeInput << std::endl;
+    std::cout << "Car Makecx  = " << carMakeInput << std::endl;
 
     int actualZipCode = stoi(zipCodeInput);
     std::cout << "ZipCode = " << actualZipCode << std::endl;
+
+    int actualMaxPrice = stoi(maxPriceInput);
+    std::cout << "ZipCode = " << actualMaxPrice << std::endl;
 
     return 0;
 }
